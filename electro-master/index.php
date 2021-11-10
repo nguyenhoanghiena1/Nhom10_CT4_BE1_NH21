@@ -1,15 +1,5 @@
-<?php
+<?php 
 session_start();
-require "./config/database.php";
-require "./models/db.php";
-require "./models/products.php";
-require "./models/manufactures.php";
-
-$product = new Products;
-$getNewProducts = $product->getNewProducts();
-$getSellingProducts = $product->getSellingProducts();
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +46,7 @@ $getSellingProducts = $product->getSellingProducts();
 	<!-- /HEADER -->
 
 	<!-- NAVIGATION -->
-	<?php include "navigation.php" ?>
+	<?php include "navigation.php"?>
 	<!-- /NAVIGATION -->
 
 	<!-- SECTION -->
@@ -144,6 +134,8 @@ $getSellingProducts = $product->getSellingProducts();
 							<div id="tab1" class="tab-pane active">
 								<div class="products-slick" data-nav="#slick-nav-1">
 									<?php
+									$product = new Products;
+									$getNewProducts = $product->getNewProducts();
 									foreach ($getNewProducts as $value) {
 
 
@@ -160,7 +152,7 @@ $getSellingProducts = $product->getSellingProducts();
 											<div class="product-body">
 												<p class="product-category">Category</p>
 												<h3 class="product-name"><a href="product.php?product_id=<?php echo $value['ID'] ?>"><?php echo $value['name'] ?></a></h3>
-												<h4 class="product-price"><?php echo number_format($value['price'], 0, ',', '.') ?> vnd<del class="product-old-price"><?php echo $value['price']+200000?>vnd</del></h4>
+												<h4 class="product-price"><?php echo number_format($value['price'], 0, ',', '.') ?> vnd<del class="product-old-price"><?php echo $value['price'] + 200000 ?>vnd</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
@@ -175,7 +167,7 @@ $getSellingProducts = $product->getSellingProducts();
 												</div>
 											</div>
 											<div class="add-to-cart">
-												<a href="cart.php?product_id=<?php echo $value['ID'] ?>"><button class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i> add to cart</button></a>
+												<a href="cart.php?product_id=<?php echo $value['ID'] ?>"><button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button></a>
 											</div>
 										</div>
 										<!-- /product -->
@@ -277,6 +269,7 @@ $getSellingProducts = $product->getSellingProducts();
 							<div id="tab2" class="tab-pane fade in active">
 								<div class="products-slick" data-nav="#slick-nav-2">
 									<?php
+									$getSellingProducts = $product->getSellingProducts();
 									foreach ($getSellingProducts as $value) {
 									?>
 										<!-- product -->
@@ -291,7 +284,7 @@ $getSellingProducts = $product->getSellingProducts();
 											<div class="product-body">
 												<p class="product-category">Category</p>
 												<h3 class="product-name"><a href="product.php?product_id=<?php echo $value['ID'] ?>"><?php echo $value['name'] ?></a></h3>
-												<h4 class="product-price"><?php echo number_format($value['price'], 0, ',', '.') ?> vnd<del class="product-old-price"><?php echo $value['price']+400000?>vnd</del></h4>
+												<h4 class="product-price"><?php echo number_format($value['price'], 0, ',', '.') ?> vnd<del class="product-old-price"><?php echo $value['price'] + 400000 ?>vnd</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>

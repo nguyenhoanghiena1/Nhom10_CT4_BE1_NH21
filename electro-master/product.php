@@ -1,19 +1,4 @@
-<?php
-session_start();
-require "./config/database.php";
-require "./models/db.php";
-require "./models/products.php";
-require "./models/manufactures.php";
 
-$product = new Products;
-if(isset($_GET['product_id']))
-{
-	$id = $_GET['product_id'];
-	$getProductById = $product->getProductsByID($id);
-}
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -86,6 +71,13 @@ if(isset($_GET['product_id']))
 		<div class="section">
 			<!-- container -->
 			<?php
+			$product = new Products;
+			if(isset($_GET['product_id']))
+			{
+				$id = $_GET['product_id'];
+				$getProductById = $product->getProductsByID($id);
+			}
+			
 					//var_dump($getProductById);
 					 foreach ($getProductById as $value) {
 						?>
@@ -157,7 +149,7 @@ if(isset($_GET['product_id']))
 							</div>
 							<p><?php echo $value['description']?> </p>
 
-							<div class="product-options">
+							<!-- <div class="product-options">
 								<label>
 									Size
 									<select class="input-select">
@@ -170,17 +162,17 @@ if(isset($_GET['product_id']))
 										<option value="0">Red</option>
 									</select>
 								</label>
-							</div>
+							</div> -->
 
 							<div class="add-to-cart">
-								<div class="qty-label">
+								<!-- <div class="qty-label">
 									Qty
 									<div class="input-number">
 										<input type="number">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
-								</div>
+								</div> -->
 								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 							</div>
 
