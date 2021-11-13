@@ -1,10 +1,15 @@
 <?php
 class User extends Db {
-    public function dangKy($user, $pass, $email){
-        $passhash = password_hash($pass, PASSWORD_DEFAULT);
-        $sql = self::$connection->prepare("INSERT INTO `user`(`username`, `password`, `email`) VALUES ( ? , ?, ?)");
-        $sql->bind_param('sss',$user, $passhash, $email);
-        return $sql->execute();
+
+    public function dangKy($user, $pass, $email)
+    {
+       
+            $passhash = password_hash($pass, PASSWORD_DEFAULT);
+            $sql = self::$connection->prepare("INSERT INTO `user`(`username`, `password`, `email`) VALUES ( ? , ?, ?)");
+            $sql->bind_param('sss', $user, $passhash, $email);
+            return $sql->execute();
+            
+      
     }
     public function dangNhap($pass, $email){
         $sql = self::$connection->prepare("SELECT * FROM `user` WHERE `email` = ?");
@@ -31,16 +36,15 @@ class User extends Db {
         }
     }
 
-    public function kiemTra($email){
+    public function kiemTra($email)
+    {
 
         $sql = self::$connection->prepare("SELECT * FROM `user` WHERE `email` = ?");
-        $sql->bind_param('s',$email);
+        $sql->bind_param('s', $email);
         $a = $this->select($sql);
-        
-        if($_SESSION['password'] ==  $a[0]['password'] && $_SESSION['email'] == $a[0]['email'])
-        {
-            if($_SESSION['quyen'] != "113")
-            {
+
+        if ($_SESSION['password'] ==  $a[0]['password'] && $_SESSION['email'] == $a[0]['email']) {
+            if ($_SESSION['quyen'] != "113") {
                 header("location: ../../exe6_new_new_moi/index.php");
             }
         }
