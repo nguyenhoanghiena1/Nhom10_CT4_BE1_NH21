@@ -4,6 +4,7 @@ require "./config/database.php";
 require "./models/db.php";
 require "./models/products.php";
 require "./models/manufactures.php";
+require "./models/protypes.php";
 
 ?>
 <nav id="navigation">
