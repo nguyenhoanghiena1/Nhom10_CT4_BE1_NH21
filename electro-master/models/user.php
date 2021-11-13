@@ -53,6 +53,6 @@ class User extends Db {
     public function dangXuat()
     {
         session_unset();
-        header("location: index.php");
+        header('location: login.php');
     }
 }
