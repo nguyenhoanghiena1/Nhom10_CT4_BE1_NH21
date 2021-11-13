@@ -153,7 +153,7 @@ class Products extends Db {
         $totalLinks = ceil($total / $perPage);
         $link = "";
         for ($j = 1; $j <= $totalLinks; $j++) {
-            $link = $link . "<li><a href='$url?page=$j'> $j </a><li>";
+            $link = $link . "<li><a href='$url&page=$j'> $j </a><li>";
         }
         return $link;
     }

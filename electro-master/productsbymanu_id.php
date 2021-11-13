@@ -286,13 +286,17 @@ session_start();
 
 					<!-- store products -->
 					<div class="row">
-						<?php $producst = new Products();
-
-						if (isset($_GET['manu_ID'])) {
+						<?php 
+						$producst = new Products();
+						if (isset($_GET['manu_ID'])):
 							$manu_id = $_GET['manu_ID'];
 							$getProducstByManuid = $producst->getProductsByManu($manu_id);
-						}
-						foreach ($getProducstByManuid as  $value) {
+							$perPage = 3;
+							$page = isset($_GET['page'])?$_GET['page']:1;
+							$total = count($getProducstByManuid);
+							$url = $_SERVER['PHP_SELF']."manu_ID=".$manu_id;
+							$get3ProductsByManu = $producst->get3ProductsByManu($manu_id, $page, $perPage);
+							foreach ($getProducstByManuid as  $value):
 							# code...
 
 						?>
@@ -331,7 +335,7 @@ session_start();
 							<!-- /product -->
 							<div class="clearfix visible-sm visible-xs"></div>
 						<?php
-						}
+						endforeach;
 						?>
 
 					</div>
@@ -341,14 +345,13 @@ session_start();
 					<div class="store-filter clearfix">
 						<span class="store-qty">Showing 20-100 products</span>
 						<ul class="store-pagination">
-							<li class="active">1</li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+							<?php
+							$producst = new Products();
+ 								echo $producst->paginate($url, $total, $perPage)?>
 						</ul>
 					</div>
 					<!-- /store bottom filter -->
+					<?php endif;?>
 				</div>
 				<!-- /STORE -->
 			</div>
