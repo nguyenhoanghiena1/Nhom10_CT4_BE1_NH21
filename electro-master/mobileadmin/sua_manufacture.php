@@ -18,7 +18,7 @@ if(isset($_POST['add'])){
 	if(!($_FILES['fileUpload']['name'] == ""))
 	{
 		$image = $_FILES['fileUpload']['name'];
-		move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../public/images/' . $_FILES['fileUpload']['name']);
+		move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../img/' . $_FILES['fileUpload']['name']);
 	} else {
 		$image = $type[0]["manu_img"];
 	}
@@ -129,7 +129,7 @@ if(isset($_POST['add'])){
 
 							<div class="control-group">
 								<label class="control-label">Image :</label>
-								<img src="../public/images/<?php echo $type[0]["manu_img"] ?>" style="width: 150px; height: 100px;">
+								<img src="../img/<?php echo $type[0]["manu_img"] ?>" style="width: 150px; height: 100px;">
 							</div>
 	
 							<div class="control-group">

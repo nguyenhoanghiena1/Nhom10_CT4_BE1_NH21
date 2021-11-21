@@ -29,49 +29,6 @@ class Manufactures extends Db
         return $sql->execute();
     }
 
-    public function chiaManu()
-    {
-        return "SELECT * FROM manufactures ORDER BY manu_ID DESC LIMIT ? , 4 ";
-    }
-
-    public function chiaTrang($page, $string) //chia trang
-    {
-        $page = $page * 4 - 4;
-        $sql = self::$connection->prepare($string);
-        $sql->bind_param('i', $page);
-
-        return $this->select($sql);
-    }
-
-    public function nutChuyenTrang($page, $mang)//hien thi nut chuyen trang
-    { 
-        $soTrang = ceil(count($mang) / PAGE);
-
-        ?>
-        <form action="" method="get">
-        <a href="?page=1"><<</a> <!--den trang dau tien-->
-
-        <!--tro lai 1 trang-->
-        <?php if($page == 1){ ?>
-            <span><</span>
-        <?php } else { ?>
-            <a href="?page=<?php echo ($page - 1); ?>"><</a>
-        <?php } ?>
-
-        <!--Nhap trang muon den-->
-        <input type="submit/text" name="page" value="<?php echo $page ?>">
-
-        <!--tien them 1 trang-->
-        <?php if($page == $soTrang){ ?>
-            <span>></span>
-        <?php } else { ?>
-            <a href="?page=<?php echo ($page + 1);?>">></a>
-        <?php } ?>
-        
-        <!--ve cuoi danh sach-->
-        <a href="?page=<?php echo $soTrang;?>">>></a>
-        </form>
-    <?php }
 
     public function capNhat($name, $image, $id)
     {
@@ -79,6 +36,7 @@ class Manufactures extends Db
         $sql->bind_param('ssi',$name, $image, $id);
         return $sql->execute();
     }
+    
 
     
 }

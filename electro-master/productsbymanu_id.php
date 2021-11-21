@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -288,10 +289,11 @@ session_start();
 					<div class="row">
 						<?php $producst = new Products();
 
-						if (isset($_GET['manu_ID'])) {
-							$manu_id = $_GET['manu_ID'];
-							$getProducstByManuid = $producst->getProductsByManu($manu_id);
-						}
+							if (isset($_GET['manu_ID'])) {
+								$manu_id = $_GET['manu_ID'];
+								$getProducstByManuid = $producst->getProductsByManu($manu_id);								$page = isset($_GET['page']) ? $_GET['page'] : 1; // Lấy số trang trên thanh địa chỉ
+							
+							}
 						foreach ($getProducstByManuid as  $value) {
 							# code...
 
@@ -339,7 +341,7 @@ session_start();
 
 					<!-- store bottom filter -->
 					<div class="store-filter clearfix">
-						<span class="store-qty">Showing 20-100 products</span>
+						
 						<ul class="store-pagination">
 							<li class="active">1</li>
 							<li><a href="#">2</a></li>

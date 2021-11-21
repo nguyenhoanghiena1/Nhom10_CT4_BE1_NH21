@@ -65,6 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						 {
 							$user = new User();
 							$user->dangNhap($_POST['password'],$_POST['email']);
+							
 						}
 						?>
 						<div class="social w3layouts">

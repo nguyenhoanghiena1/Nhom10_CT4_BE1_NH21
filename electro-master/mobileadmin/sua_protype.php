@@ -131,7 +131,7 @@ if(isset($_POST['add'])){
 							</div>
 							<div class="control-group">
 								<label class="control-label">Image :</label>
-								<img src="../public/images/<?php echo $type[0]["type_img"] ?>" style="width: 100px; height: 100px;">
+								<img src="../img/<?php echo $type[0]["type_img"] ?>" style="width: 100px; height: 100px;">
 							</div>
 							<div class="control-group">
 									<label class="control-label">Choose an image :</label>

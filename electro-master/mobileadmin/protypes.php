@@ -116,7 +116,7 @@ $protypes = $Protype->getAllProtype();
 							<tr class="">
 								<td><?php echo $key['type_ID'] ?></td>
 								<td><?php echo $key['type_name'] ?></td>
-								<td><img src="../public/images/<?php echo $key['type_img'] ?>" style="width:100px"></td>
+								<td><img src="../img/<?php echo $key['type_img'] ?>" style="width:100px"></td>
 								<td>
 									<a href="sua_protype.php?ID=<?php echo $key['type_ID'] ?>" class="btn btn-success btn-mini">Edit</a>
 									<a href="del.php?ID=<?php echo $key["type_ID"] ?>&k=p" class="btn btn-danger btn-mini">Delete</a>

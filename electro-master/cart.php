@@ -4,166 +4,140 @@ require "./config/database.php";
 require "./models/db.php";
 require "./models/products.php";
 require "./models/manufactures.php";
-
-$Manu = new Manufactures;
-$product = new Products;
-
-$getAllManu = $Manu->getAllManu();
-
-if (isset($_GET['id'])) {
-    $bool = true;
-
-    $pro = $product->getProductsByID($_GET['id']);
-    foreach ($_SESSION['cart']['hang'] as $key) {
-        if ($key["ID"] == $_GET['id']) {
-            $bool = false;
-            break;
-        }
-    }
-    $_SESSION['cart']['tien'] = $tongTien;
-    $_SESSION['cart']['hang'][$_GET['id']] = $pro[0];
-    if ($bool == true) {
-        $_SESSION['cart']['soluong'] += 1;
-    }
-    $_SESSION['cart']['hang'][$_GET['id']]['sl'] = 1;
-
-    header("location: cart.php");
-}
-if (isset($_GET['number']) && isset($_GET["ida"])) {
-    $_SESSION['cart']['hang'][$_GET["ida"]]['sl'] = $_GET['number'];
-    header("location: cart.php");
-}
-
-$tongTien = 0;
-foreach ($_SESSION['cart']['hang'] as $key) {
-    $tongTien += $key['price'] * $key['sl'];
-}
-$_SESSION['cart']['tien'] = $tongTien;
+require "./models/protypes.php";
+require "./models/user.php";
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Exe6</title>
-    <link rel="stylesheet" href="public/css/style.css">
-    <link rel="stylesheet" href="public/css/bootstrap.min.css">
-    <script src="public/js/jquery-3.3.1.min.js"></script>
-    <script src="public/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Cart | E-Shopper</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/prettyPhoto.css" rel="stylesheet">
+	<link href="css/price-range.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet">
+	<link href="css/maincart.css" rel="stylesheet">
+	<link href="css/responsive.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+	<link rel="shortcut icon" href="images/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
+<!--/head-->
 
 <body>
-    <!--header-->
-    <header>
-        <!--cart-->
-        <div class="container">
-            <div class="cart">
-                <?php if (isset($_SESSION['login'])) { ?>
-                    <a style="float: left;" href="logout.php">Dang Xuat</a>
-                <?php } ?>
-            </div>
-        </div>
-        <!--end cart-->
-        <!--navbar-->
-        <div class="container">
-            <nav class="navbar navbar-expand-sm navbar-light bg-pink">
-                <div class="logo"><img class="img-fluid" src="public/images/logo.png" alt=""></div>
-                <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a id="home" class="nav-link" href="index.php">HOME<span class="sr-only">(current)</span></a>
-                        </li>
-                        <?php foreach ($getAllManu as $key) { ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="menu.php?timkiem=<?php echo  $key['manu_name'] ?>&page=1"><?php echo $key['manu_name'] ?></a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <!--end navbar-->
-        <!--banner-->
-        <div class="banner">
-            <h1>Free Online Shopping</h1>
-            <a href="#">SHOP NOW</a>
-        </div>
-        <!--end banner-->
-    </header>
-    <!--end header-->
-    <!-- style -->
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            text-align: center;
-        }
-    </style>
-    <!-- style end -->
-    <!--content-->
-    <div class="content">
-        <h1>New Collections</h1>
-        <div class="container">
-            <table style="width:100%">
-                <tr>
-                    <th>Id</th>
-                    <th>Ten</th>
-                    <th>Hinh anh</th>
-                    <th>Gia tien</th>
-                    <th>So luong</th>
-                    <th>Hanh dong</th>
-                </tr>
-                <?php foreach ($_SESSION['cart']['hang'] as $key) { ?>
-                    <tr>
-                        <td><?php echo $key['ID']; ?></td>
-                        <td><?php echo $key['name']; ?></td>
-                        <td><img src="public/images/<?php echo $key['image']; ?>" style="width: 100px; height: 100px"></td>
-                        <td><?php echo $key['price']; ?></td>
-                        <td>
-                            <form action="" method="get">
-                                <input type="number" name="ida" style="display: none;" value="<?php echo $key['ID']; ?>">
-                                <input min="1" max="10" type="number" value="<?php echo $key['sl']; ?>" name="number">
-                                <button type="submit">OK</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="del.php" method="post">
-                                <input type="number" name="ida" style="display: none;" value="<?php echo $key['ID']; ?>">
-                                <button type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </table>
-        </div>
-    </div>
 
-    <!--end content-->
-    <footer>
-        <div class="container">
-            <div class="f1">
-                <img class="img-fluid" src="public/images/12.jpg" alt="">
-                <form action="timkiem.php">
-                    <input type="text" name="page" value="1" style="display: none;">
-                    <input id="tim" name="timkiem" type="text" placeholder="Tim Kiem...">
-                    <input id="join" type="submit" value="Tim">
-                </form>
-            </div>
-        </div>
 
-        <div class="f2">
-            <p>&copy; 2016 FIT TDC</p>
-        </div>
-    </footer>
+	<section id="cart_items">
+
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+					<li><a href="index.php">Home</a></li>
+					<li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description"></td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$cart = array();
+						if (isset($_GET['product_id'])) {
+							$product_id = $_GET['product_id'];
+
+							if (isset($_SESSION['cart'][$product_id])) {
+								$_SESSION['cart'][$product_id]++;
+							} else {
+								$_SESSION['cart'][$product_id] = 1;
+							}
+						}
+						$cart = $_SESSION['cart'];
+
+						$products = new Products();
+
+						foreach ($cart as $key => $qty) {
+							$getProductsByID = $products->getProductsByID($key);
+							foreach ($getProductsByID as $value) {
+								if ($value['ID'] == $key) {
+									$total = $value['price'] * $qty;	
+						?>
+									<tr>
+										<td class="cart_product">
+											<a href=""><img src="./img/<?php echo $value['image'] ?>" style="width: 100px; height: 100px" alt=""></a>
+										</td>
+										<td class="cart_description">
+											<h4><a href=""><?php echo $value['name'] ?></a></h4>
+											<p>Web ID:<?php echo $key ?></p>
+										</td>
+										<td class="cart_price">
+											<p><?php echo number_format($value['price'], 0, ',', '.') ?> vnd</p>
+										</td>
+										<td class="cart_quantity">
+											<div class="cart_quantity_button">
+												<a class="cart_quantity_up" href="#"> + </a>
+												<input class="cart_quantity_input" type="text" name="quantity" value="<?php echo $qty ?>" autocomplete="off" size="2">
+												<a class="cart_quantity_down" href="#"> - </a>
+											</div>
+										</td>
+										<td class="cart_total">
+											<p class="cart_total_price"><?php echo number_format($total, 0, ',', '.') ?> vnd</p>
+										</td>
+										<td class="cart_delete">
+											<a class="cart_quantity_delete" href="del.php?product_id=<?php echo $key ?>"><i class="fa fa-times"></i></a>
+										</td>
+									</tr>
+						<?php }
+							}
+						}
+
+
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+			</div>
+			<div class="col-sm-6">
+				<div class="total_area">
+
+					<a class="btn btn-default update" href="deletecart">Deletecart</a>
+					<a class="btn btn-default check_out" href="checkout.php">Check Out</a>
+				</div>
+			</div>
+
+		</div>
+
+
+
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.scrollUp.min.js"></script>
+		<script src="js/jquery.prettyPhoto.js"></script>
+		<script src="js/maincart.js"></script>
+
 </body>
 
 </html>
-<?php  ?>

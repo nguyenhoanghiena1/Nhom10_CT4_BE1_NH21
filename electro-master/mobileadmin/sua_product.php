@@ -32,7 +32,7 @@ if(isset($_POST['add'])){
 	$des = $_POST['description'];
 	$manu_ID = $_POST['manu_id'];
 	$type_ID = $_POST['type_id'];
-	move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../public/images/' . $_FILES['fileUpload']['name']);
+	move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../img/' . $_FILES['fileUpload']['name']);
 	$product->capNhat($name,$price,$image,$des,$manu_ID,$type_ID,$_GET['ID']);
 	header("location: index.php");
 }
@@ -158,7 +158,7 @@ if(isset($_POST['add'])){
 								</div>
 								<div class="img">
 									<label class="control-label"  >Image: </label>
-									<img src="../public/images/<?php echo $sua[0]['image']; ?>" style="width: 200px; height: 200px;">
+									<img src="../img/<?php echo $sua[0]['image']; ?>" style="width: 200px; height: 200px;">
 								</div>
 								<div class="control-group">
 									<label class="control-label">Choose an image :</label>

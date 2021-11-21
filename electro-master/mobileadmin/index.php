@@ -10,23 +10,14 @@ $user = new User;
 
 $user->kiemTra($_SESSION['email']);
 
-if(isset($_GET['page'])){
-$page = $_GET["page"];
+
 $product = new Products;
 
-$soTrang = $product->countSo($product->getAllProductsAdmin());
-if(!is_numeric($page))
-{
-    header("Location: index.php?page=1");
-}else if($page > $soTrang)
-{
-    header("Location: index.php?page=$soTrang");
-}else if($page < 0)
-{
-    header("Location: index.php?page=1");
-}
 
-$getProduct = $product->chiaTrang($page, $product->chiaProductsAdmin()); //lay san pham
+$page = isset($_GET['page'])?$_GET['page']:1; // Lấy số trang trên thanh địa chỉ
+$total = count($product->getAllProducts()); // Tính tổng số dòng
+$url = $_SERVER['PHP_SELF']; // lấy đường dẫn đến file hiện hành
+$perPage = 5; // hiển thị 5 sản phẩm trên 1 trang
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,9 +145,11 @@ $getProduct = $product->chiaTrang($page, $product->chiaProductsAdmin()); //lay s
 							</tr>
 							</thead>
 							<tbody>
-							<?php foreach($getProduct as $key){ ?>
+							<?php
+							$get5ProductPhanTrang = $product->get5ProductPhanTrang($page, $perPage);
+							 foreach($get5ProductPhanTrang as $key){ ?>
 							<tr class="">
-								<td><img src="../public/images/<?php echo $key['image']; ?>" /></td>
+								<td><img src="../img/<?php echo $key['image']; ?>"  style="width: 50%; height: 50%" /></td>
 								<td><?php echo $key['name']; ?></td>
 								<td><?php echo $key['type_name']; ?></td>
 								<td><?php echo $key['manu_name']; ?></td>
@@ -172,7 +165,9 @@ $getProduct = $product->chiaTrang($page, $product->chiaProductsAdmin()); //lay s
 					
 						</table>
 						<ul class="pagination">
-               				<div class="nut_bam"><?php $product->nutChuyenTrang($page, $product->getAllProducts(),'k',"") ?></div>
+
+               				<div class="nut_bam"><?php
+							    echo $product->paginate($url, $total, $perPage)?></div>
 						</ul>
 						
 					</div>
@@ -197,6 +192,4 @@ $getProduct = $product->chiaTrang($page, $product->chiaProductsAdmin()); //lay s
 <script src="public/js/matrix.tables.js"></script>
 </body>
 </html>
-<?php }else {
-	header("location: index.php?page=1");
-} ?>
+

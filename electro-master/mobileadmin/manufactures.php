@@ -11,20 +11,6 @@ $user = new User;
 $user->kiemTra($_SESSION['email']);
 
 
-if (isset($_GET['page'])) {
-	$page = $_GET["page"];
-	$Manu = new Manufactures;
-
-	$soTrang = ceil(count($Manu->getAllManu()) / PAGE);
-	if (!is_numeric($page)) {
-		header("Location: manufactures.php?page=1");
-	} else if ($page > $soTrang) {
-		header("Location: manufactures.php?page=$soTrang");
-	} else if ($page < 0) {
-		header("Location: manufactures.php?page=1");
-	}
-
-	$manu = $Manu->chiaTrang($page, $Manu->chiaManu()); //lay san pham
 
 	?>
 	<!DOCTYPE html>
@@ -156,11 +142,14 @@ if (isset($_GET['page'])) {
 									</thead>
 
 									<tbody>
-										<?php foreach ($manu as $key) { ?>
+										<?php
+										$Manu = new Manufactures;
+										$getAllManu = $Manu->getAllManu();
+										 foreach ($getAllManu as $key) { ?>
 											<tr class="">
 												<td><?php echo $key['manu_ID'] ?></td>
 												<td><?php echo $key['manu_name'] ?></td>
-												<td><img src="../public/images/<?php echo $key['manu_img'] ?>" style="width:100px"></td>
+												<td><img src="../img/<?php echo $key['manu_img'] ?>" style="width:100px"></td>
 												<td>
 													<a href="sua_manufacture.php?ID=<?php echo $key["manu_ID"] ?>" class="btn btn-success btn-mini">Edit</a>
 													<a href="del.php?ID=<?php echo $key['manu_ID'] ?>&k=m" class="btn btn-danger btn-mini">Delete</a>
@@ -171,9 +160,7 @@ if (isset($_GET['page'])) {
 								</table>
 							</div>
 						</div>
-						<ul class="pagination">
-							<div class="nut_bam"><?php $Manu->nutChuyenTrang($page, $Manu->getAllManu()) ?></div>
-						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -196,6 +183,3 @@ if (isset($_GET['page'])) {
 	</body>
 
 	</html>
-<?php } else {
-	header("location: manufactures.php?page=1");
-} ?>

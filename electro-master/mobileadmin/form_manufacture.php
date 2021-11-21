@@ -16,7 +16,7 @@ if(isset($_POST['add'])){
 	{
 		$name = $_POST['manu_name'];
 		$image = $_FILES['fileUpload']['name'];
-		move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../public/images/' . $_FILES['fileUpload']['name']);
+		move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../public/img/' . $_FILES['fileUpload']['name']);
 		$manu->addManufacture($name,$image);
 		header("location: manufactures.php");
 	}

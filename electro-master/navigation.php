@@ -27,6 +27,8 @@ require "./models/protypes.php";
 					<li><a href="productsbymanu_id.php?manu_ID=<?php echo $value['manu_ID'] ?>"><?php echo $value['manu_name'] ?></a></li>
 
 				<?php } ?>
+			
+				
 			</ul>
 			<!-- /NAV -->
 		</div>

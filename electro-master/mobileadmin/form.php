@@ -25,7 +25,7 @@ if(isset($_POST['add'])){//add product khi nhan nut add
 	$des = $_POST['description'];
 	$manu_ID = $_POST['manu_id'];
 	$type_ID = $_POST['type_id'];
-	move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../public/images/' . $_FILES['fileUpload']['name']);
+	move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../img/' . $_FILES['fileUpload']['name']);
 	$product->addProduct($name,$price,$image,$des,$manu_ID,$type_ID);
 }
 
