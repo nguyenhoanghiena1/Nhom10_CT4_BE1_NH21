@@ -17,16 +17,19 @@ $manu = new Manufactures;
 
 $type = $protype->getAllProtype();
 $ma = $manu->getAllManu();
-
+ 
 if(isset($_POST['add'])){//add product khi nhan nut add
 	$name = $_POST['name'];
 	$price = $_POST['price'];
 	$image = $_FILES['fileUpload']['name'];
+	//var_dump($_FILES['fileUpload']);
 	$des = $_POST['description'];
 	$manu_ID = $_POST['manu_id'];
 	$type_ID = $_POST['type_id'];
 	move_uploaded_file($_FILES['fileUpload']['tmp_name'], '../img/' . $_FILES['fileUpload']['name']);
 	$product->addProduct($name,$price,$image,$des,$manu_ID,$type_ID);
+	header('location: index.php');
+    
 }
 
 
@@ -188,7 +191,7 @@ if(isset($_POST['add'])){//add product khi nhan nut add
 
 <!--Footer-part-->
 <div class="row-fluid">
-	<div id="footer" class="span12"> 2017 &copy; TDC - Lập trình web 1</div>
+	<div id="footer" class="span12"> 2021 &copy; TDC - Lập trình web 1</div>
 </div>
 <!--end-Footer-part-->
 <script src="public/js/jquery.min.js"></script>

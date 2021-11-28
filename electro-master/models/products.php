@@ -85,11 +85,12 @@ class Products extends Db {
     public function addProduct($name,$price,$image,$des,$manu_ID,$type_ID)
     {
         $sql = self::$connection->prepare("INSERT 
-        INTO `products`(products.name, products.price, products.image, products.description, products.manu_ID, products.type_ID) 
+        INTO `products`( `name`, `price`, `image`, `description`, `manu_ID`, `type_ID`) 
         VALUES ( ? , ? , ? , ? , ? , ? )");
         $sql->bind_param('sissii',$name,$price,$image,$des,$manu_ID,$type_ID);
         return $sql->execute();
     }
+
 
     public function capNhat($name,$price,$image,$des,$manu_ID,$type_ID, $id)
     {

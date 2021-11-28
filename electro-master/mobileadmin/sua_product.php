@@ -180,7 +180,7 @@ if(isset($_POST['add'])){
 									</div>
 
 									<div class="form-actions">
-										<button name="add" type="submit" class="btn btn-success">Add</button>
+										<button name="add" type="submit" class="btn btn-success">Update</button>
 									</div>
 								</div>
 
@@ -199,7 +199,7 @@ if(isset($_POST['add'])){
 
 <!--Footer-part-->
 <div class="row-fluid">
-	<div id="footer" class="span12"> 2017 &copy; TDC - Lập trình web 1</div>
+	<div id="footer" class="span12"> 2021 &copy; TDC - Lập trình web 1</div>
 </div>
 <!--end-Footer-part-->
 <script src="public/js/jquery.min.js"></script>
