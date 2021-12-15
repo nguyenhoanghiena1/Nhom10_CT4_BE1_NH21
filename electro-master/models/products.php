@@ -11,6 +11,15 @@ class Products extends Db {
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items; //return an array
     }
+    public function getProductsByProtype($protype_id)//lấy sản phẩm theo hãng loại sản phẩm
+    {
+        $sql = self::$connection->prepare("SELECT * FROM `products` WHERE `type_ID` = ?");
+        $sql->bind_param("i", $protype_id);
+        $sql->execute(); //return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+    }
     public function getAllProducts() { //lay tat ca san pham
         $sql = self::$connection->prepare("SELECT * FROM products");
         return $this->select($sql);
@@ -64,10 +73,7 @@ class Products extends Db {
 
     public function timkiem1($tim) { //tim kiem
         $i = '%' . $tim . '%';
-        $sql = self::$connection->prepare("SELECT *
-        FROM products, manufactures
-        WHERE products.manu_ID = manufactures.manu_ID
-        AND manu_name LIKE ?");
+        $sql = self::$connection->prepare("SELECT * FROM `products`,manufactures,protypes WHERE products.manu_ID = manufactures.manu_ID and products.type_ID= protypes.type_ID and description LIKE ?");
         $sql->bind_param('s',$i);
         return $this->select($sql);
     }

@@ -72,42 +72,44 @@ require "./models/user.php";
 								$_SESSION['cart'][$product_id] = 1;
 							}
 						}
-						$cart = $_SESSION['cart'];
+						if (isset($_SESSION['cart'])) {
+							$cart = $_SESSION['cart'];
 
-						$products = new Products();
+							$products = new Products();
 
-						foreach ($cart as $key => $qty) {
-							$getProductsByID = $products->getProductsByID($key);
-							foreach ($getProductsByID as $value) {
-								if ($value['ID'] == $key) {
-									$total = $value['price'] * $qty;	
+							foreach ($cart as $key => $qty) {
+								$getProductsByID = $products->getProductsByID($key);
+								foreach ($getProductsByID as $value) {
+									if ($value['ID'] == $key) {
+										$total = $value['price'] * $qty;
 						?>
-									<tr>
-										<td class="cart_product">
-											<a href=""><img src="./img/<?php echo $value['image'] ?>" style="width: 100px; height: 100px" alt=""></a>
-										</td>
-										<td class="cart_description">
-											<h4><a href=""><?php echo $value['name'] ?></a></h4>
-											<p>Web ID:<?php echo $key ?></p>
-										</td>
-										<td class="cart_price">
-											<p><?php echo number_format($value['price'], 0, ',', '.') ?> vnd</p>
-										</td>
-										<td class="cart_quantity">
-											<div class="cart_quantity_button">
-												<a class="cart_quantity_up" href="#"> + </a>
-												<input class="cart_quantity_input" type="text" name="quantity" value="<?php echo $qty ?>" autocomplete="off" size="2">
-												<a class="cart_quantity_down" href="#"> - </a>
-											</div>
-										</td>
-										<td class="cart_total">
-											<p class="cart_total_price"><?php echo number_format($total, 0, ',', '.') ?> vnd</p>
-										</td>
-										<td class="cart_delete">
-											<a class="cart_quantity_delete" href="del.php?product_id=<?php echo $key ?>"><i class="fa fa-times"></i></a>
-										</td>
-									</tr>
+										<tr>
+											<td class="cart_product">
+												<a href=""><img src="./img/<?php echo $value['image'] ?>" style="width: 100px; height: 100px" alt=""></a>
+											</td>
+											<td class="cart_description">
+												<h4><a href=""><?php echo $value['name'] ?></a></h4>
+												<p>Web ID:<?php echo $key ?></p>
+											</td>
+											<td class="cart_price">
+												<p><?php echo number_format($value['price'], 0, ',', '.') ?> vnd</p>
+											</td>
+											<td class="cart_quantity">
+												<div class="cart_quantity_button">
+													<a class="cart_quantity_up" href="#"> + </a>
+													<input class="cart_quantity_input" type="text" name="quantity" value="<?php echo $qty ?>" autocomplete="off" size="2">
+													<a class="cart_quantity_down" href="#"> - </a>
+												</div>
+											</td>
+											<td class="cart_total">
+												<p class="cart_total_price"><?php echo number_format($total, 0, ',', '.') ?> vnd</p>
+											</td>
+											<td class="cart_delete">
+												<a class="cart_quantity_delete" href="del.php?product_id=<?php echo $key ?>"><i class="fa fa-times"></i></a>
+											</td>
+										</tr>
 						<?php }
+								}
 							}
 						}
 

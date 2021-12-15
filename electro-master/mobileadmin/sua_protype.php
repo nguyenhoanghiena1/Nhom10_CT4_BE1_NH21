@@ -83,7 +83,7 @@ if(isset($_POST['add'])){
 
 <!--start-top-serch-->
 <div id="search">
-	<form action="result.html" method="get">
+	<form action="result.php" method="get">
 	<input type="text" placeholder="Search here..." name="key"/>
 	<button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
 </form>

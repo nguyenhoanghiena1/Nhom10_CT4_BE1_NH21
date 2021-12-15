@@ -10,7 +10,6 @@ $user = new User;
 
 $user->kiemTra($_SESSION['email']);
 
-
 $product = new Products;
 
 
@@ -96,7 +95,7 @@ $perPage = 5; // hiển thị 5 sản phẩm trên 1 trang
 
 <!--start-top-serch-->
 <div id="search">
-	<form action="result.html" method="get">
+	<form action="result.php" method="get">
 	<input type="text" placeholder="Search here..." name="key"/>
 	<button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
 </form>
@@ -120,7 +119,7 @@ $perPage = 5; // hiển thị 5 sản phẩm trên 1 trang
 <!-- BEGIN CONTENT -->
 <div id="content">
 	<div id="content-header">
-		<div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom current"><i class="icon-home"></i> Home</a></div>
+		<div id="breadcrumb"> <a href="index.php" title="Go to Home" class="tip-bottom current"><i class="icon-home"></i> Home</a></div>
 		<h1>Manage Products</h1>
 	</div>
 	<div class="container-fluid">

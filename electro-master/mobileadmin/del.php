@@ -8,6 +8,9 @@ require "../models/protypes.php";
 require "../models/user.php";
 
 $user = new User;
+$Manu = new Manufactures;
+$Protype = new Protypes;
+$product = new Products;
 
 $user->kiemTra($_SESSION['email']);
 if(isset($_GET["k"]))
@@ -16,8 +19,6 @@ if(isset($_GET["k"]))
         if(isset($_GET["ID"]))
         {
             $ID = $_GET["ID"];
-            $product = new Products;
-    
             $product->deleteProduct($ID);
     
             header("location: index.php?page=1");
@@ -25,11 +26,10 @@ if(isset($_GET["k"]))
             header("location: index.php?page=1");
         }
     }elseif($_GET["k"]=="m"){
-        if(isset($_GET["ID"]))
+        if(isset($_GET["ID"])&& count($product->getProductsByManu($_GET["ID"]))==0)
         {
             $ID = $_GET["ID"];
-            $Manu = new Manufactures;
-    
+            
             $Manu->deleteManu($ID);
     
             header("location: manufactures.php");
@@ -37,11 +37,10 @@ if(isset($_GET["k"]))
             header("location: manufactures.php");
         }
     }elseif($_GET["k"]=='p'){
-        if(isset($_GET["ID"]))
+        
+        if(isset($_GET["ID"]) && count($product->getProductsByProtype($_GET["ID"]))==0)
         {
             $ID = $_GET["ID"];
-            $Protype = new Protypes;
-    
             $Protype->deleteProtype($ID);
     
             header("location: protypes.php");
