@@ -42,11 +42,8 @@ class User extends Db {
         $sql = self::$connection->prepare("SELECT * FROM `user` WHERE `email` = ?");
         $sql->bind_param('s', $email);
         $a = $this->select($sql);
-
-        if ($_SESSION['password'] ==  $a[0]['password'] && $_SESSION['email'] == $a[0]['email']) {
-            if ($_SESSION['quyen'] != "113") {
-                header("location: ../../exe6_new_new_moi/index.php");
-            }
+        if (isset($_SESSION['email'])==false) {
+                header("location:http://localhost/project/electro-master/login.php");
         }
     }
 

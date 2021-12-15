@@ -7,9 +7,8 @@ require "../models/manufactures.php";
 require "../models/user.php";
 
 $user = new User;
-
 $user->kiemTra($_SESSION['email']);
-
+//var_dump($_SESSION['email']);
 $product = new Products;
 
 

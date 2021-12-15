@@ -11,6 +11,13 @@ class Products extends Db {
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items; //return an array
     }
+    
+    public function getProductsPriceSpace($pricespace)  //lấy ra sản pham dựa trên giá 
+     {
+        $sql = self::$connection->prepare("SELECT * FROM `products` WHERE price BETWEEN ? and (SELECT MAX(price) FROM products) ORDER BY price ASC LIMIT 0,4"); 
+        $sql->bind_param('i',$pricespace);
+        return $this->select($sql);
+    }
     public function getProductsByProtype($protype_id)//lấy sản phẩm theo hãng loại sản phẩm
     {
         $sql = self::$connection->prepare("SELECT * FROM `products` WHERE `type_ID` = ?");
@@ -37,7 +44,6 @@ class Products extends Db {
         $page = $page * 4 - 4;
         $sql = self::$connection->prepare($string);
         $sql->bind_param('i', $page);
-
         return $this->select($sql);
     }
 
@@ -47,8 +53,6 @@ class Products extends Db {
         $sql->bind_param('i',$id);
         return $this->select($sql);
     }
-
-
 
     public function chiaProductTK($tim)
     {
